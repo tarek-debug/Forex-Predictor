@@ -1,0 +1,3 @@
+[submodule "flask-user-authentication"]
+	path = flask-user-authentication
+	url = https://github.com/anuraagnagar/flask-user-authentication
