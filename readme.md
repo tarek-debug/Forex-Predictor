@@ -6,7 +6,7 @@ CurrencyExchangeInsights aims to enhance decision-making for traders and busines
 ## Microservices Architecture
 
 ### Data Integration Service
-- **Responsibility:** Fetches real-time and historical exchange rate data from external APIs, primarily **Frankfurter** for current and historical rates published by the European Central Bank. It processes and stores this data for use by the Prediction Service.
+- **Responsibility:** Fetches real-time and historical exchange rate data from external APIs, primarily [**Frankfurter**](https://www.frankfurter.app) for current and historical rates published by the European Central Bank. It processes and stores this data for use by the Prediction Service.
 - **Technologies:** Python, Flask for creating RESTful services, and a database (e.g., PostgreSQL) for storing fetched data.
 
 ### Prediction Service
