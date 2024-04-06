@@ -5,6 +5,9 @@ CurrencyExchangeInsights aims to enhance decision-making for traders and busines
 
 ## Microservices Architecture
 
+### Diagram
+![Microservices Architecture Diagram](project_diagram.png)
+
 ### UI Container
 - **Responsibility:** Serves the frontend interface of CurrencyExchangeInsights, providing an intuitive and responsive user experience. It includes:
   - **Login Page**: Secure authentication for accessing user-specific insights and history.
