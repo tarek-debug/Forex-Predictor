@@ -42,7 +42,7 @@ CurrencyExchangeInsights aims to enhance decision-making for traders and busines
 ### Modular Services
 - Showcases a microservices-based architecture with a clear division of responsibilities.
 
-### Machine Learning
+### Machine Learning/AI
 - Applies sophisticated machine learning techniques for precise forecasting within the Prediction Service.
 
 ### Containers and Kubernetes
