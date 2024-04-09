@@ -26,7 +26,7 @@ CurrencyExchangeInsights aims to enhance decision-making for traders and busines
 
 ### Data Storage Service
 - **Responsibility:** Handles storage and retrieval of historical data requests and prediction outcomes, supporting queries for historical information and managing user-generated history.
-- **Technologies:** Python and Flask for creating RESTful services, PostgreSQL for data persistence.
+- **Technologies:** Python and Flask for creating RESTful services, SQLite for data persistence.
 
 ## Deployment
 - **Containerization:** Docker is employed to containerize each microservice, ensuring isolated environments and dependency management.
