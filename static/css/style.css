@@ -1,0 +1,19 @@
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#results {
+    margin-top: 20px;
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 4px;
+}

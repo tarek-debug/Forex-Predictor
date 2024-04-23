@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Historical Data - Forex Predictor</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">Forex Predictor</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="generic.html">Features</a></li>
+                <li><a href="elements.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h1 class="major">Fetch Historical Data</h1>
+                <form id="dataForm" method="post" action="#">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="field">
+                            <label for="base-currency">Base Currency:</label>
+                            <input type="text" id="base-currency" name="base-currency" value="EUR" required>
+                        </div>
+                        <div class="field">
+                            <label for="target-currency">Target Currency:</label>
+                            <input type="text" id="target-currency" name="target-currency" value="USD" required>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Get Data" class="primary" /></li>
+                    </ul>
+                </form>
+                <div id="results" class="box alt mt-3"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; Forex Predictor. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
