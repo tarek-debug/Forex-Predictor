@@ -1,14 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Animated log in / sign up</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <meta charset="UTF-8">
+    <title>Login and Registration</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/css/demo.css'>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
-<div id="app"></div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js'></script>
-<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+    <div id="large-header" class="large-header">
+        <canvas id="demo-canvas"></canvas>
+        <div class="container">
+            <div class="card">
+                <div class="form-container" id="loginForm">
+                    <h2>Login</h2>
+                    <input type="text" id="username" placeholder="Username">
+                    <input type="password" id="password" placeholder="Password">
+                    <button type="button" onclick="login()">Login</button>
+                    <p class="message">Don't have an account? <button class="switch-button" onclick="showRegistration()">Register Here</button></p>
+                </div>
+                <div class="form-container" id="registrationForm" style="display: none;">
+                    <h2>Register</h2>
+                    <input type="text" id="regUsername" placeholder="Username">
+                    <input type="email" id="regEmail" placeholder="Email">
+                    <input type="password" id="regPassword" placeholder="Password">
+                    <input type="password" id="regConfirmPassword" placeholder="Confirm Password">
+                    <button type="button" onclick="register()">Register</button>
+                    <p class="message">Already have an account? <button class="switch-button" onclick="showLogin()">Login Here</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js'></script>
+    <script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js'></script>
+    <script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js'></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/login.js"></script>
 </body>
 </html>
