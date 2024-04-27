@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 # Directory where your models and scalers are saved
 model_save_dir = "prediction_models"
+DATA_STORAGE_SERVICE_URL = 'http://localhost:5000/predictions'  # URL of the data storage service
 
 def fetch_recent_exchange_rates(base_currency, target_currency, num_days=60):
     end_date = pd.Timestamp.now()
@@ -34,6 +35,7 @@ def load_scaler_and_model(base_currency, target_currency):
 def scale_data(df, scaler):
     values_scaled = scaler.transform(df)
     return values_scaled
+
 def rolling_forecast(scaler, model, scaled_data, n_steps, n_future):
     predictions_scaled = []
     if scaled_data.shape[0] < n_steps:
@@ -54,33 +56,35 @@ def rolling_forecast(scaler, model, scaled_data, n_steps, n_future):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Extracting data from request...
     data = request.get_json(force=True)
+    username = data.get('username')
     base_currency = data.get('base_currency', '').upper()
     target_currency = data.get('target_currency', '').upper()
     future_date_str = data.get('future_date')
     n_steps = 60  # This should match your training configuration
 
-    # Ensure all required data is present...
     if not base_currency or not target_currency or not future_date_str:
         return jsonify({"error": "Missing required parameters."}), 400
 
-    # Fetch and prepare data...
     future_date = pd.to_datetime(future_date_str)
-    df_recent_rates = fetch_recent_exchange_rates(base_currency, target_currency, 90)  # Fetch more days to ensure enough data
+    df_recent_rates = fetch_recent_exchange_rates(base_currency, target_currency, 90)
     scaler, model = load_scaler_and_model(base_currency, target_currency)
-
-    # Perform the rolling forecast...
     scaled_recent_rates = scale_data(df_recent_rates[[target_currency]], scaler)
-    n_future = (future_date - df_recent_rates.index[-1]).days + 1  # Including the future date itself
+    n_future = (future_date - df_recent_rates.index[-1]).days + 1
     predictions_scaled = rolling_forecast(scaler, model, scaled_recent_rates, n_steps, n_future)
-    future_predictions = scaler.inverse_transform(predictions_scaled)[:n_future]  # Adjusting for actual number of future days
+    future_predictions = scaler.inverse_transform(predictions_scaled)[:n_future]
 
-    # Prepare and send the response...
     future_dates = [df_recent_rates.index[-1] + pd.Timedelta(days=i) for i in range(1, n_future+1)]
     predictions = [{"date": date.strftime('%Y-%m-%d'), "prediction": float(prediction)} for date, prediction in zip(future_dates, future_predictions.flatten())]
 
-    return jsonify(predictions)
+    # Send the prediction results to the data storage microservice
+    post_data = {"username": username, "predictions": predictions}
+    response = requests.post(DATA_STORAGE_SERVICE_URL, json=post_data)
+    
+    if response.status_code == 200:
+        return jsonify(predictions)
+    else:
+        return jsonify({"error": "Failed to store predictions"}), response.status_code
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)
