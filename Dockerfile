@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install Flask
+# Including Flask and requests
+RUN pip install Flask requests
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
