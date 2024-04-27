@@ -1,4 +1,4 @@
-from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 
 
 # A bootstrap5 class for styling client side. 
-bootstrap = Bootstrap5()
+bootstrap = Bootstrap()
 
 # csrf protection for form submission.
 csrf = CSRFProtect()
@@ -22,4 +22,4 @@ login_manager = LoginManager()
 mail = Mail()
 
 # flask_migrate - Migration for database
-migrate = Migrate(command='db') 
+migrate = Migrate() 
