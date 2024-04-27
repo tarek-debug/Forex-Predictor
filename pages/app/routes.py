@@ -7,6 +7,14 @@ app = create_app()
 def home():
     return render_template('login.html')
 
+@app.route('/test')
+def test():
+    return render_template('home.html')
+
+@app.route('/history')
+def history():
+    return render_template('history.html')
+
 # You can add more routes here
 @app.route('/login', methods=['POST'])
 def login():
