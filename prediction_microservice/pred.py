@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # Directory where your models and scalers are saved
 model_save_dir = "prediction_models"
-DATA_STORAGE_SERVICE_URL = 'http://localhost:5000/predictions'  # URL of the data storage service
+DATA_STORAGE_SERVICE_URL = 'http://localhost:5003/predictions'  # URL of the data storage service
 
 def fetch_recent_exchange_rates(base_currency, target_currency, num_days=60):
     end_date = pd.Timestamp.now()
@@ -77,14 +77,22 @@ def predict():
     future_dates = [df_recent_rates.index[-1] + pd.Timedelta(days=i) for i in range(1, n_future+1)]
     predictions = [{"date": date.strftime('%Y-%m-%d'), "prediction": float(prediction)} for date, prediction in zip(future_dates, future_predictions.flatten())]
 
-    # Send the prediction results to the data storage microservice
-    post_data = {"username": username, "predictions": predictions}
+    # Include initial request details in the data sent to data storage
+    post_data = {
+        "username": username,
+        "base_currency": base_currency,
+        "target_currency": target_currency,
+        "future_date": future_date_str,
+        "predictions": predictions
+    }
     response = requests.post(DATA_STORAGE_SERVICE_URL, json=post_data)
-    
-    if response.status_code == 200:
+
+    if response.status_code in [200, 201]:
         return jsonify(predictions)
     else:
         return jsonify({"error": "Failed to store predictions"}), response.status_code
 
+
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5002)

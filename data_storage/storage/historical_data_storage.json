@@ -1,0 +1,22 @@
+{
+    "tarek": [
+        {
+            "timestamp": "2024-04-29T23:26:17.496354",
+            "data": {
+                "username": "tarek",
+                "base_currency": "EUR",
+                "target_currency": "CNY",
+                "date": "2024-01-20"
+            }
+        },
+        {
+            "timestamp": "2024-04-29T23:59:27.321331",
+            "data": {
+                "username": "tarek",
+                "base_currency": "EUR",
+                "target_currency": "CNY",
+                "date": "2024-12-12"
+            }
+        }
+    ]
+}
