@@ -1,21 +1,19 @@
 {
     "tarek": [
         {
-            "timestamp": "2024-04-29T23:26:17.496354",
-            "data": {
-                "username": "tarek",
+            "timestamp": "2024-04-30T15:53:48.074609",
+            "request_data": {
                 "base_currency": "EUR",
-                "target_currency": "CNY",
-                "date": "2024-01-20"
-            }
-        },
-        {
-            "timestamp": "2024-04-29T23:59:27.321331",
-            "data": {
-                "username": "tarek",
-                "base_currency": "EUR",
-                "target_currency": "CNY",
-                "date": "2024-12-12"
+                "target_currency": "USD",
+                "date": "2024-01-01"
+            },
+            "response_data": {
+                "amount": 1,
+                "base": "EUR",
+                "date": "2023-12-29",
+                "rates": {
+                    "USD": 1.105
+                }
             }
         }
     ]

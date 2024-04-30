@@ -12,19 +12,20 @@ function fetchData() {
         .then(data => {
             displayResults(data);
             clearGraph(); // Clear the graph when fetching historical data
-            // Send the request data for logging
-            logHistoricalRequest(baseCurrency, targetCurrency, date);
+            // Log both request and response data
+            logHistoricalData(baseCurrency, targetCurrency, date, data);
         })
         .catch(error => console.error('Error fetching data:', error));
 }
 
-function logHistoricalRequest(baseCurrency, targetCurrency, date) {
+function logHistoricalData(baseCurrency, targetCurrency, date, responseData) {
     if (username) { // Check if username is not empty
-        const requestData = {
+        const data = {
             username: username,
             base_currency: baseCurrency,
             target_currency: targetCurrency,
-            date: date
+            date: date,
+            response: responseData // Include the response data
         };
 
         fetch('/log_historical_data', {
@@ -32,7 +33,7 @@ function logHistoricalRequest(baseCurrency, targetCurrency, date) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(requestData)
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
         .then(result => console.log('Historical data logged:', result))
@@ -43,6 +44,7 @@ function logHistoricalRequest(baseCurrency, targetCurrency, date) {
 }
 
 
+
 function displayResults(data) {
     const results = document.querySelector('.results');
     results.textContent = JSON.stringify(data, null, 2);
@@ -50,7 +52,6 @@ function displayResults(data) {
 }
 
 function sendPrediction() {
-    console.log("sendPrediction called");
     const baseCurrency = document.querySelector('input[placeholder="From Currency"]').value.toUpperCase();
     const targetCurrency = document.querySelector('input[placeholder="To Currency"]').value.toUpperCase();
     const futureDate = document.querySelector('input[placeholder="YYYY-MM-DD"]').value;
@@ -61,6 +62,9 @@ function sendPrediction() {
         future_date: futureDate
     };
 
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) spinner.style.display = 'block'; // Show the spinner only if it exists
+
     fetch('/predict', {
         method: 'POST',
         headers: {
@@ -70,14 +74,16 @@ function sendPrediction() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Prediction data received:", data); // Check received data
         displayPredictionResults(data);
-        displayGraph(data); // Function to display graph
+        displayGraph(data);
+        if (spinner) spinner.style.display = 'none'; // Hide the spinner only if it exists
     })
     .catch(error => {
         console.error('Error sending prediction data:', error);
+        if (spinner) spinner.style.display = 'none'; // Hide the spinner in case of error, only if it exists
     });
 }
+
 
 function displayPredictionResults(data) {
     const results = document.querySelector('.results');

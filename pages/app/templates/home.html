@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="static/css/main.css" />
     <noscript><link rel="stylesheet" href="static/css/noscript.css" /></noscript>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.2); /* Lighter grey for the spinner */
+            border-radius: 50%;
+            border-top: 4px solid #3498db; /* Blue */
+            width: 36px;
+            height: 36px;
+            animation: spin 2s linear infinite;
+            margin: auto; /* Center the spinner */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loadingSpinner {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .predictingText {
+            color: white;
+            margin-top: 10px;
+            text-align: center; /* Center the text */
+        }
+
+
+
+
+
+    </style>
+    
 </head>
 <body class="is-preload">
     <!-- Header -->
@@ -49,7 +83,12 @@
 
                 <!-- Results container -->
                 <pre class="results"></pre>
-                
+                <!-- Predicting Spinner and Text -->
+                <div id="loadingSpinner" style="text-align: center; margin-top: 20px;">
+                    <div class="spinner"></div>
+                    <p class="predictingText">Predicting...</p>
+                </div>
+                                
                 <!-- Chart container -->
                 <div style="width: 75%; margin: auto;">
                     <canvas id="predictionChart"></canvas>

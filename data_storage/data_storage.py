@@ -51,12 +51,22 @@ def store_historical():
     username = data['username']
     if username not in historical_data:
         historical_data[username] = []
-    historical_data[username].append({
+
+    # Create a new entry including both the request and the response
+    historical_entry = {
         'timestamp': datetime.now().isoformat(),
-        'data': data
-    })
+        'request_data': {
+            'base_currency': data['base_currency'],
+            'target_currency': data['target_currency'],
+            'date': data['date']
+        },
+        'response_data': data['response']  # Assuming 'response' contains the historical data fetched
+    }
+    historical_data[username].append(historical_entry)
     write_json(historical_data, HISTORICAL_DATA_FILE)
     return jsonify({'success': True}), 201
+
+
 
 
 @app.route('/predictions', methods=['POST'])
@@ -104,6 +114,41 @@ def get_predictions():
     user_data = predictions.get(username, [])
     return jsonify(user_data), 200
 
+@app.route('/delete_prediction/<username>/<int:index>', methods=['DELETE'])
+def delete_prediction(username, index):
+    predictions = read_json(PREDICTIONS_FILE)
+    if username in predictions and len(predictions[username]) > index:
+        del predictions[username][index]
+        write_json(predictions, PREDICTIONS_FILE)
+        return jsonify({'success': True})
+    return jsonify({'error': 'Not found'}), 404
+
+@app.route('/clear_predictions/<username>', methods=['DELETE'])
+def clear_predictions(username):
+    predictions = read_json(PREDICTIONS_FILE)
+    if username in predictions:
+        predictions[username] = []
+        write_json(predictions, PREDICTIONS_FILE)
+        return jsonify({'success': True})
+    return jsonify({'error': 'Not found'}), 404
+
+@app.route('/delete_historical_data/<username>/<int:index>', methods=['DELETE'])
+def delete_historical_data(username, index):
+    historical_data = read_json(HISTORICAL_DATA_FILE)
+    if username in historical_data and len(historical_data[username]) > index:
+        del historical_data[username][index]
+        write_json(historical_data, HISTORICAL_DATA_FILE)
+        return jsonify({'success': True})
+    return jsonify({'error': 'Not found'}), 404
+
+@app.route('/clear_historical_data/<username>', methods=['DELETE'])
+def clear_historical_data(username):
+    historical_data = read_json(HISTORICAL_DATA_FILE)
+    if username in historical_data:
+        historical_data[username] = []
+        write_json(historical_data, HISTORICAL_DATA_FILE)
+        return jsonify({'success': True})
+    return jsonify({'error': 'Not found'}), 404
 
 
 
