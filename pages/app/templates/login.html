@@ -6,7 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/css/demo.css'>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/login_background_style.css">
     <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
@@ -24,7 +24,6 @@
                 <div class="form-container" id="registrationForm" style="display: none;">
                     <h2>Register</h2>
                     <input type="text" id="regUsername" placeholder="Username">
-                    <input type="email" id="regEmail" placeholder="Email">
                     <input type="password" id="regPassword" placeholder="Password">
                     <input type="password" id="regConfirmPassword" placeholder="Confirm Password">
                     <button type="button" onclick="register()">Register</button>
@@ -33,10 +32,11 @@
             </div>
         </div>
     </div>
+    <div id="notification" class="notification"></div>
     <script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js'></script>
     <script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js'></script>
     <script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js'></script>
-    <script src="/static/js/script.js"></script>
+    <script src="/static/js/login_background.js"></script>
     <script src="/static/js/login.js"></script>
 </body>
 </html>
