@@ -48,6 +48,8 @@ def store_historical_data():
     if response.status_code == 200:
         return jsonify({'success': True}), 200
     return jsonify({'error': 'Failed to store data'}), response.status_code
+
+
 @app.route('/fetch_historical_data', methods=['POST'])
 def fetch_historical_data():
     user_data = request.json
@@ -66,6 +68,26 @@ def fetch_predictions():
         return jsonify({'error': 'Prediction service failed', 'details': str(e)}), 500
     except requests.exceptions.RequestException as e:
         return jsonify({'error': 'Network or connection error', 'details': str(e)}), 500
+@app.route('/delete_prediction/<username>/<int:index>', methods=['DELETE'])
+def gateway_delete_prediction(username, index):
+    response = requests.delete(f"{DATA_STORAGE_SERVICE_URL}/delete_prediction/{username}/{index}")
+    return jsonify({"success": True}), response.status_code if response.status_code == 200 else (jsonify({"error": "Failed"}), 500)
+
+@app.route('/clear_predictions/<username>', methods=['DELETE'])
+def gateway_clear_predictions(username):
+    response= requests.delete(f"{DATA_STORAGE_SERVICE_URL}/clear_predictions/{username}")
+    return jsonify({"success": True}), response.status_code if response.status_code == 200 else (jsonify({"error": "Failed"}), 500)
+
+@app.route('/delete_historical_data/<username>/<int:index>', methods=['DELETE'])
+def gateway_delete_historical_data(username, index):
+    response= requests.delete(f"{DATA_STORAGE_SERVICE_URL}/delete_historical_data/{username}/{index}")
+    return jsonify({"success": True}), response.status_code if response.status_code == 200 else (jsonify({"error": "Failed"}), 500)
+
+
+@app.route('/clear_historical_data/<username>', methods=['DELETE'])
+def gateway_clear_historical_data(username):
+    response = requests.delete(f"{DATA_STORAGE_SERVICE_URL}/clear_historical_data/{username}")
+    return jsonify({"success": True}), response.status_code if response.status_code == 200 else (jsonify({"error": "Failed"}), 500)
 
 if __name__ == '__main__':
     app.run(port=5001, debug=True)

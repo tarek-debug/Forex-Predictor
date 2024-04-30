@@ -92,6 +92,36 @@ def prediction_history(username):
         return jsonify({'error': 'Network or connection issue'}), 500
     except ValueError:
         return jsonify({'error': 'Invalid JSON received'}), 500
+@app.route('/delete_prediction/<int:index>', methods=['DELETE'])
+def delete_prediction(index):
+    if 'username' in session:
+        response = requests.delete(f"{GATEWAY_API_URL}/delete_prediction/{session['username']}/{index}")
+        return jsonify(response.json()), response.status_code
+    return jsonify({'error': 'User not logged in'}), 401
+
+@app.route('/clear_predictions', methods=['DELETE'])
+def clear_predictions():
+    if 'username' in session:
+        response = requests.delete(f"{GATEWAY_API_URL}/clear_predictions/{session['username']}")
+        return jsonify(response.json()), response.status_code
+    return jsonify({'error': 'User not logged in'}), 401
+
+@app.route('/delete_historical_data/<int:index>', methods=['DELETE'])
+def delete_historical_data(index):
+    if 'username' in session:
+        response = requests.delete(f"{GATEWAY_API_URL}/delete_historical_data/{session['username']}/{index}")
+        return jsonify(response.json()), response.status_code
+    return jsonify({'error': 'User not logged in'}), 401
+
+@app.route('/clear_historical_data', methods=['DELETE'])
+def clear_historical_data():
+    if 'username' in session:
+        response = requests.delete(f"{GATEWAY_API_URL}/clear_historical_data/{session['username']}")
+        return jsonify(response.json()), response.status_code
+    return jsonify({'error': 'User not logged in'}), 401
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)  # Run the application on port 5000
