@@ -69,7 +69,7 @@ def store_historical():
 
 
 
-@app.route('/predictions', methods=['POST'])
+@app.route('/log_predictions', methods=['POST'])
 def add_prediction():
     data = request.json
     predictions = read_json(PREDICTIONS_FILE)
