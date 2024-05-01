@@ -155,21 +155,3 @@ def clear_historical_data(username):
 if __name__ == '__main__':
     app.run(debug=True, port=5003)
 
-
-'''
-
-@app.route('/historical/<username>', methods=['GET'])
-def get_historical_data(username):
-    historical_data = read_json(HISTORICAL_DATA_FILE)
-    user_data = historical_data.get(username, [])
-    return jsonify(user_data), 200
-
-
-@app.route('/predictions/<username>', methods=['GET'])
-def get_predictions(username):
-    predictions = read_json(PREDICTIONS_FILE)
-    user_data = predictions.get(username, [])
-    return jsonify(user_data), 200
-
-
-'''

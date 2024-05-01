@@ -16,7 +16,7 @@ EXPOSE 5001
 # Define environment variables
 ENV FLASK_APP=./pred.py
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=5001
+ENV FLASK_RUN_PORT=5002
 
 # Run app.py when the container launches
 CMD ["flask", "run"]

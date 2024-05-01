@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # Directory where your models and scalers are saved
 model_save_dir = "prediction_models"
-DATA_STORAGE_SERVICE_URL = 'http://localhost:5003/predictions'  # URL of the data storage service
+DATA_STORAGE_SERVICE_URL = os.environ.get('GATEWAY_API_URL', 'http://localhost:5003')
 
 def fetch_recent_exchange_rates(base_currency, target_currency, num_days=60):
     end_date = pd.Timestamp.now()
