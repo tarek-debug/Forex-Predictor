@@ -67,11 +67,28 @@
                     var username = "{{ session['username'] if 'username' in session else '' }}";
                 </script>
                 <p>Welcome to Forex Predictor by Tarek, Hamim, and Yusuke. This application allows you to fetch historical forex data, predict future values, and review past searches.</p>
+                <p style="font-size: smaller;">Please note that the historical data requested might be from a date different than specified due to availability. The provided data represents the closest available past date.</p>
                 
                 <!-- Currency input section -->
                 <div class="currency-input" style="display: flex; justify-content: center; gap: 10px;">
-                    <input type="text" placeholder="From Currency">
-                    <input type="text" placeholder="To Currency">
+                    <select id="fromCurrency">
+                        <option value="">Select From Currency</option>
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="CNY">CNY - Chinese Yuan Renminbi</option>
+                        <!-- Add more currencies as needed -->
+                    </select>
+                    <select id="toCurrency">
+                        <option value="">Select To Currency</option>
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="CNY">CNY - Chinese Yuan Renminbi</option>
+                        <!-- Add more currencies as needed -->
+                    </select>
                 </div>
                 <div class="date" style="text-align: center;">
                     <input type="text" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}">
