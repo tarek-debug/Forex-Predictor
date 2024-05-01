@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fxp-ui
+  namespace: FXP-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fxp-ui
+  template:
+    metadata:
+      labels:
+        app: fxp-ui
+    spec:
+      containers:
+      - name: fxp-ui
+        image: fxp-ui-image:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: GATEWAY_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: fxp-config
+              key: GATEWAY_API_URL
