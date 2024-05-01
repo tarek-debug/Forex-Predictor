@@ -51,12 +51,13 @@ def predict():
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.json
+    print(data)
     # Forward to prediction service
     prediction_response = requests.post(f"{PREDICTION_SERVICE_URL}/predict", json=data)
     if prediction_response.status_code == 200:
         predictions = prediction_response.json()
         # Send predictions to data storage
-        store_response = requests.post(f"{DATA_STORAGE_SERVICE_URL}/log_predictions", json={"username": data['username'], "predictions": predictions})
+        store_response = requests.post(f"{DATA_STORAGE_SERVICE_URL}/log_predictions", json={"username": data['username'],"base_currency": data['base_currency'], "target_currency": data['target_currency'], "future_date": data['future_date'], "predictions": predictions})
         # Return predictions to the routes.py
         return jsonify(predictions), prediction_response.status_code
     else:

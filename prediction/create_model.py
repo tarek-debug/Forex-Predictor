@@ -155,8 +155,8 @@ def predict_and_evaluate(models, sequences, scaler_dict, target_currencies):
 
 
 if __name__ == "__main__":
-    base_currency = "EUR"
-    target_currencies = ["GBP", "USD"]
+    base_currency = "GBP"
+    target_currencies = ["USD", "JPY", "CNY", "EUR"]
     # target_currencies = ["USD", "GBP", "JPY", "CNY"]
 
     start_date = "1995-01-01"

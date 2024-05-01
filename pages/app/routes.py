@@ -60,6 +60,15 @@ def predict():
     else:
         return jsonify({'error': 'User not logged in'}), 401
 
+@app.route('/learnmore')
+def learn_more():
+    # You can include any necessary logic here, such as checking if the user is logged in
+    if 'username' in session:
+        return render_template('learnmore.html')
+    else:
+        return redirect(url_for('login'))
+
+
 @app.route('/history')
 def history():
     if 'username' in session:
