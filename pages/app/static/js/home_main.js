@@ -71,9 +71,12 @@ function displayResults(data) {
 
 
 function sendPrediction() {
-    const baseCurrency = document.getElementById('fromCurrency').value.toUpperCase(); //updated for dropdown
+    const baseCurrency = document.getElementById('fromCurrency').value.toUpperCase(); // Using dropdown
     const targetCurrency = document.getElementById('toCurrency').value.toUpperCase();
     const futureDate = document.querySelector('input[placeholder="YYYY-MM-DD"]').value;
+    console.log(baseCurrency);
+    console.log(targetCurrency);
+    console.log(futureDate);
 
     const predictionData = {
         base_currency: baseCurrency,
@@ -82,7 +85,7 @@ function sendPrediction() {
     };
 
     const spinner = document.getElementById('loadingSpinner');
-    if (spinner) spinner.style.display = 'block'; // Show the spinner only if it exists
+    if (spinner) spinner.style.display = 'block'; // Show the spinner
 
     fetch('/predict', {
         method: 'POST',
@@ -95,11 +98,11 @@ function sendPrediction() {
     .then(data => {
         displayPredictionResults(data);
         displayGraph(data);
-        if (spinner) spinner.style.display = 'none'; // Hide the spinner only if it exists
+        if (spinner) spinner.style.display = 'none'; // Hide the spinner
     })
     .catch(error => {
         console.error('Error sending prediction data:', error);
-        if (spinner) spinner.style.display = 'none'; // Hide the spinner in case of error, only if it exists
+        if (spinner) spinner.style.display = 'none'; // Hide the spinner in case of error
     });
 }
 
