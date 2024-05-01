@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
 # Define URLs for each service
-PREDICTION_SERVICE_URL = 'http://localhost:5002'
-DATA_STORAGE_SERVICE_URL = 'http://localhost:5003'
+PREDICTION_SERVICE_URL = os.environ.get('GATEWAY_API_URL', 'http://localhost:5002')
+DATA_STORAGE_SERVICE_URL = os.environ.get('GATEWAY_API_URL', 'http://localhost:5003')
 
 @app.route('/login', methods=['POST'])
 def login():
