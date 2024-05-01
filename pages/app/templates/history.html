@@ -38,7 +38,7 @@
 <body class="is-preload" data-username="{{ username if 'username' in session }}">
     <!-- Header -->
     <header id="header">
-        <a href="index.html" class="title">Forex Predictor</a>
+        <a href="{{ url_for('home') }}" class="title">Forex Predictor</a>
         <nav>
             <ul>
                 <li><a href="{{ url_for('home') }}" >Home</a></li>

@@ -45,12 +45,13 @@
 <body class="is-preload">
     <!-- Header -->
     <header id="header">
-        <a href="index.html" class="title">Forex Predictor</a>
+        <a href="{{ url_for('home') }}" class="title">Forex Predictor</a>
         <nav>
             <ul>
                 <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
                 <li><a href="{{ url_for('history') }}">History</a></li>                
-                <li><a href="login.html">Logout</a></li>
+                <li><a href="{{ url_for('login') }}">Logout</a></li>
+
             </ul>
         </nav>
     </header>
@@ -95,7 +96,7 @@
                 </div>
                 
                 <ul class="actions">
-                    <li><a href="history.html" class="button">Learn More</a></li>  <!-- Updated link -->
+                    <a href="{{ url_for('about') }}" class="button">Learn More</a>
                 </ul>
             </div>
         </section>
