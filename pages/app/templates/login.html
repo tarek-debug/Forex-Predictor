@@ -9,6 +9,68 @@
     <link rel="stylesheet" href="/static/css/login_background_style.css">
     <link rel="stylesheet" href="/static/css/login.css">
 </head>
+
+<style>
+    body {
+        font-family: 'Raleway', sans-serif;
+        color: white;
+        background: #305A72; /* Dark background color */
+        background-image: url('/static/images/space-background.jpg'); /* Space-themed background image */
+        background-size: cover; /* Ensure the image covers the full background */
+        background-position: center; /* Center the background image */
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .card {
+        background: rgba(0, 0, 0, 0.6); /* Semi-transparent card background */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 90%; /* Limit the card width */
+        max-width: 400px; /* Maximum width */
+    }
+    .form-container {
+        margin: 20px 0; /* Add space above and below the form */
+    }
+    h2 {
+        text-align: center;
+        color: #FFFFFF;
+    }
+    input[type="text"], input[type="password"] {
+        width: calc(100% - 20px); /* Full width minus padding */
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background: #ffffff;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px; /* Add space above the button */
+        border-radius: 5px;
+        background-color: #3498db; /* Consistent button color */
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .switch-button {
+        background: none;
+        border: none;
+        color: #FFD700; /* Gold color for clickable text */
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+    }
+    .message {
+        text-align: center;
+        margin-top: 15px;
+    }
+</style>
 <body>
     <div id="large-header" class="large-header">
         <canvas id="demo-canvas"></canvas>
