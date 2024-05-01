@@ -47,9 +47,28 @@ function logHistoricalData(baseCurrency, targetCurrency, date, responseData) {
 
 function displayResults(data) {
     const results = document.querySelector('.results');
-    results.textContent = JSON.stringify(data, null, 2);
-    clearGraph(); // Optionally clear the graph here if needed when displaying results
+    results.innerHTML = ''; // Clear existing results
+
+    if (data && data.base && data.date && data.rates) {
+        // Building a list of currency rates
+        const ratesList = Object.entries(data.rates).map(([currency, rate]) => {
+            return `${currency}: ${rate.toFixed(4)}`; // Format rate to 4 decimal places
+        }).join(', ');
+
+        // Create a formatted output
+        const formattedData = `
+            <h3>Historical Exchange Rates</h3>
+            <p style="margin: 2px 0;"><strong>Base Currency:</strong> ${data.base}</p>
+            <p style="margin: 2px 0;"><strong>Date:</strong> ${data.date}</p>
+            <p style="margin: 2px 0;"><strong>Rates:</strong> ${ratesList}</p>
+        `;
+
+        results.innerHTML = formattedData;
+    } else {
+        results.textContent = "No data available for the selected date and currencies.";
+    }
 }
+
 
 function sendPrediction() {
     const baseCurrency = document.getElementById('fromCurrency').value.toUpperCase(); //updated for dropdown
