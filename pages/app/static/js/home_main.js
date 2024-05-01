@@ -1,8 +1,8 @@
 let myChart = null; // This will hold the chart instance
 
 function fetchData() {
-    const baseCurrency = document.querySelector('input[placeholder="From Currency"]').value.toUpperCase();
-    const targetCurrency = document.querySelector('input[placeholder="To Currency"]').value.toUpperCase();
+    const baseCurrency = document.getElementById('fromCurrency').value.toUpperCase(); //updated for dropdown
+    const targetCurrency = document.getElementById('toCurrency').value.toUpperCase();
     const date = document.querySelector('input[placeholder="YYYY-MM-DD"]').value;
 
     const url = `https://api.frankfurter.app/${date}?from=${baseCurrency}&to=${targetCurrency}`;
@@ -52,8 +52,8 @@ function displayResults(data) {
 }
 
 function sendPrediction() {
-    const baseCurrency = document.querySelector('input[placeholder="From Currency"]').value.toUpperCase();
-    const targetCurrency = document.querySelector('input[placeholder="To Currency"]').value.toUpperCase();
+    const baseCurrency = document.getElementById('fromCurrency').value.toUpperCase(); //updated for dropdown
+    const targetCurrency = document.getElementById('toCurrency').value.toUpperCase();
     const futureDate = document.querySelector('input[placeholder="YYYY-MM-DD"]').value;
 
     const predictionData = {
