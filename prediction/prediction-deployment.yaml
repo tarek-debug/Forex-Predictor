@@ -18,9 +18,3 @@ spec:
         image: tarek111778/fxp-prediction-image:v1
         ports:
         - containerPort: 5002
-        env:
-        - name: DATA_STORAGE_SERVICE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: fxp-config
-              key: DATA_STORAGE_SERVICE_URL
