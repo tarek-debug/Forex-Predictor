@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fxp-ui
-  namespace: FXP-namespace
+  namespace: fxp-namespace
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: fxp-ui
-        image: fxp-ui-image:latest
+        image: tarek111778/fxp-ui-image:v1
         ports:
         - containerPort: 5000
         env:
