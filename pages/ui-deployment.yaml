@@ -20,7 +20,4 @@ spec:
         - containerPort: 5000
         env:
         - name: GATEWAY_API_URL
-          valueFrom:
-            configMapKeyRef:
-              name: fxp-config
-              key: GATEWAY_API_URL
+          value: "http://fxp-gateway:5001"

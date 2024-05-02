@@ -20,12 +20,6 @@ spec:
         - containerPort: 5001
         env:
         - name: PREDICTION_SERVICE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: fxp-config
-              key: PREDICTION_SERVICE_URL
+          value: "http://fxp-prediction:5002"
         - name: DATA_STORAGE_SERVICE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: fxp-config
-              key: DATA_STORAGE_SERVICE_URL
+          value: "http://fxp-data-storage:5003"
