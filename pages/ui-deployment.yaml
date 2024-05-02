@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fxp-ui
-  namespace: fxp-namespace
+  namespace: fxp-apps
 spec:
   replicas: 1
   selector:
