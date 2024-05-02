@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fxp-data-storage
+  namespace: fxp-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fxp-data-storage
+  template:
+    metadata:
+      labels:
+        app: fxp-data-storage
+    spec:
+      containers:
+      - name: fxp-data-storage
+        image: tarek111778/fxp-data-storage-image:v1
+        ports:
+        - containerPort: 5003
