@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fxp-ui-ingress
+  namespace: fxp-apps
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /ui/
+        pathType: Prefix
+        backend:
+          service:
+            name: fxp-ui
+            port:
+              number: 80
