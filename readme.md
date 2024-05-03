@@ -1,7 +1,7 @@
-# CurrencyExchangeInsights
+# ForEx Predictor
 
 ## Purpose
-CurrencyExchangeInsights aims to enhance decision-making for traders and businesses by offering predictive insights and actionable recommendations on currency exchange rate movements. This project, leveraging a microservices architecture with machine learning models and API integrations for real-time data, serves as a comprehensive tool for navigating the complexities of the foreign exchange market.
+ForEx Predictor s aims to enhance decision-making for traders and businesses by offering predictive insights and actionable recommendations on currency exchange rate movements. This project, leveraging a microservices architecture with machine learning models and API integrations for real-time data, serves as a comprehensive tool for navigating the complexities of the foreign exchange market.
 
 ## Microservices Architecture
 
@@ -48,8 +48,83 @@ CurrencyExchangeInsights aims to enhance decision-making for traders and busines
 ### Containers and Kubernetes
 - Demonstrates cloud-native development and deployment best practices through the use of containerization and Kubernetes orchestration.
 
-## Getting Started
-Clone this repository and refer to the setup documentation for deploying the microservices on your Kubernetes cluster.
+## Getting Started with Forex Predictor
+
+This section provides detailed instructions on deploying and running the Forex Predictor application using Docker and Kubernetes. Ensure you have Docker, kubectl, and minikube (or any other Kubernetes cluster) installed on your system to proceed with the setup.
+
+### Prerequisites
+1. **Docker**: Install Docker on your system to create containers for each service.
+2. **Kubernetes**: Install a Kubernetes cluster management tool, such as Minikube or use a cloud provider's Kubernetes service.
+3. **kubectl**: Install kubectl to interact with your Kubernetes cluster.
+4. **Helm**: Optionally, install Helm to manage Kubernetes charts easily.
+
+### Deploying Forex Predictor
+Follow these steps to deploy the Forex Predictor application on Kubernetes:
+
+1. **Start Your Kubernetes Cluster**:
+   - For Minikube: Run `minikube start` to initiate a local Kubernetes cluster.
+
+2. **Clone the Repository**:
+   - Clone this repository to your local machine to access the Kubernetes configuration files.
+   ```bash
+   git clone https://github.com/your-username/forex-predictor.git
+   cd forex-predictor
+   ```
+
+3. **Load Docker Images**:
+   - Build Docker images for each service or pull them from your registry.
+   ```bash
+   docker build -t forex-ui ./pages
+   docker build -t forex-gateway ./gateway
+   docker build -t forex-prediction ./prediction
+   docker build -t forex-data-storage ./data-storage
+   ```
+
+4. **Deploy Services to Kubernetes**:
+   - Apply the Kubernetes configurations:
+   ```bash
+   cd apps
+   kubectl apply -f configmap.yaml
+   kubectl apply -f data-storage-deployment.yaml
+   kubectl apply -f data-storage-service.yaml
+   kubectl apply -f gateway-deployment.yaml
+   kubectl apply -f gateway-service.yaml
+   kubectl apply -f prediction-deployment.yaml
+   kubectl apply -f prediction-service.yaml
+   kubectl apply -f ui-deployment.yaml
+   kubectl apply -f ui-service.yaml
+   kubectl apply -f fxp-ui-ingress.yaml
+   ```
+
+5. **Access the Application**:
+   - Use `minikube service list` to find the IP and port of the UI service or check your cloud Kubernetes service dashboard.
+   - Access the Forex Predictor UI via the provided URL in your browser.
+
+### Monitoring and Logs
+- Monitor the status of the pods and services using:
+  ```bash
+  kubectl get pods
+  kubectl get services
+  ```
+- View logs for a specific service:
+  ```bash
+  kubectl logs <pod-name>
+  ```
+
+### Updating the Application
+- To update any service, rebuild the Docker image and update the Kubernetes deployment:
+  ```bash
+  docker build -t forex-service:new ./path/to/service/Dockerfile
+  kubectl set image deployment/forex-service forex-service=forex-service:new
+  ```
+
+### Cleaning Up
+- To stop and remove all running services:
+  ```bash
+  kubectl delete all --all
+  ```
+
+This setup provides a robust foundation for running the Forex Predictor application in a production-like environment on Kubernetes.
 
 ## Contributing
 We encourage contributions to CurrencyExchangeInsights. See our contributing guidelines for more details on participating.
