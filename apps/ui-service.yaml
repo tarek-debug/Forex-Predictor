@@ -4,9 +4,10 @@ metadata:
   name: fxp-ui
   namespace: fxp-apps
 spec:
+  type: LoadBalancer
   selector:
     app: fxp-ui
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 5000
+    targetPort: 5000 
