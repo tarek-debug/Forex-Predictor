@@ -15,9 +15,24 @@ spec:
     spec:
       containers:
       - name: fxp-ui
-        image: tarek111778/fxp-ui-image:v1
+        image: tarek111778/fxp-ui-image:v0.0.3
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
-        - containerPort: 5000
+          - containerPort: 5000
         env:
-        - name: GATEWAY_API_URL
-          value: "http://fxp-gateway:5001"
+          - name: GATEWAY_API_URL
+            value: "http://fxp-gateway:5001"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          failureThreshold: 2
+          initialDelaySeconds: 15
+          periodSeconds: 60

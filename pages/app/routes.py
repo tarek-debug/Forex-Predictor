@@ -16,6 +16,7 @@ def home():
 @app.route('/health')
 def health_check():
     # Add your custom health check logic here
+    print("checking health")
     if all_required_services_are_running():
         return 'OK', 200
     else:
@@ -25,8 +26,10 @@ def all_required_services_are_running():
     # Replace this with your logic to check the health of your services
     # For example, check if the required processes are running
     return True
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    print("logging in...")
     if request.method == 'POST':
         user_data = request.json
         response = requests.post(f"{GATEWAY_API_URL}/login", json=user_data)
