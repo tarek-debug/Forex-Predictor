@@ -74,10 +74,10 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
 3. **Load Docker Images**:
    - Build Docker images for each service or pull them from your registry.
    ```bash
-   docker build -t forex-ui ./pages/Dockerfile
-   docker build -t forex-gateway ./gateway/Dockerfile
-   docker build -t forex-prediction ./prediction/Dockerfile
-   docker build -t forex-data-storage ./data-storage/Dockerfile
+   docker build -t forex-ui ./pages
+   docker build -t forex-gateway ./gateway
+   docker build -t forex-prediction ./prediction
+   docker build -t forex-data-storage ./data-storage
    ```
 
 4. **Deploy Services to Kubernetes**:
