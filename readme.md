@@ -80,10 +80,11 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    docker build -t forex-data-storage ./data_storage
    ```
 
-4. **Deploy Services to Kubernetes**:
+4. **Create Namespace and Deploy Services to Kubernetes**:
    - Apply the Kubernetes configurations:
    ```bash
    cd apps
+   kubectl create namespace fxp-apps
    kubectl apply -f configmap.yaml
    kubectl apply -f data-storage-deployment.yaml
    kubectl apply -f data-storage-service.yaml
