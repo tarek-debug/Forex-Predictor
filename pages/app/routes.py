@@ -13,7 +13,18 @@ def home():
         return render_template('home.html')
     else:
         return redirect(url_for('login'))
-
+@app.route('/health')
+def health_check():
+    # Add your custom health check logic here
+    if all_required_services_are_running():
+        return 'OK', 200
+    else:
+        return 'Service Unavailable', 500
+# Example health check logic, replace it with your actual logic
+def all_required_services_are_running():
+    # Replace this with your logic to check the health of your services
+    # For example, check if the required processes are running
+    return True
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
