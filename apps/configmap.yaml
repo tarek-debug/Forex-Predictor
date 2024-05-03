@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fxp-config
-  namespace: fxp-namespace
+  namespace: fxp-apps
 data:
   GATEWAY_API_URL: "http://fxp-gateway:5001"
   PREDICTION_SERVICE_URL: "http://fxp-prediction:5002"
