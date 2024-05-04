@@ -79,13 +79,13 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    docker build -t [DockerHub Username]/fxp-ui-image:v0.0.1 ./pages
    ```
    ```bash
-   docker build -t [DockerHub Username]/forex-gateway ./gateway
+   docker build -t [DockerHub Username]/forex-gateway:v0.0.1 ./gateway
    ```
    ```bash
-   docker build -t [DockerHub Username]forex-prediction ./prediction
+   docker build -t [DockerHub Username]forex-prediction:v0.0.1 ./prediction
    ```
    ```bash
-   docker build -t [DockerHub Username]forex-data-storage ./data_storage
+   docker build -t [DockerHub Username]forex-data-storage:v0.0.1 ./data_storage
    ```
 
 4. **Create Namespace and Deploy Services to Kubernetes**: Make sure to change to rename the image container names to the ones you built in your dockerhub account.
