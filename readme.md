@@ -68,6 +68,8 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    - Clone this repository to your local machine to access the Kubernetes configuration files.
    ```bash
    git clone https://github.com/your-username/forex-predictor.git
+   ```
+   ```bash
    cd forex-predictor
    ```
 
@@ -75,8 +77,14 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    - Build Docker images for each service or pull them from your registry.
    ```bash
    docker build -t forex-ui ./pages
+   ```
+   ```bash
    docker build -t forex-gateway ./gateway
+   ```
+   ```bash
    docker build -t forex-prediction ./prediction
+   ```
+   ```bash
    docker build -t forex-data-storage ./data_storage
    ```
 
@@ -84,16 +92,38 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    - Apply the Kubernetes configurations:
    ```bash
    cd apps
+   ```
+   ```bash
    kubectl create namespace fxp-apps
+   ```
+   ```bash
    kubectl apply -f configmap.yaml
+   ```
+   ```bash
    kubectl apply -f data-storage-deployment.yaml
+   ```
+   ```bash
    kubectl apply -f data-storage-service.yaml
+   ```
+   ```bash
    kubectl apply -f gateway-deployment.yaml
+   ```
+   ```bash
    kubectl apply -f gateway-service.yaml
+   ```
+   ```bash
    kubectl apply -f prediction-deployment.yaml
+   ```
+   ```bash
    kubectl apply -f prediction-service.yaml
+   ```
+   ```bash
    kubectl apply -f ui-deployment.yaml
+   ```
+   ```bash
    kubectl apply -f ui-service.yaml
+   ```
+   ```bash
    kubectl apply -f fxp-ui-ingress.yaml
    ```
 
@@ -105,8 +135,10 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
 - Monitor the status of the pods and services using:
   ```bash
   kubectl get pods
-  kubectl get services
   ```
+  ```bash
+  kubectl get services
+   ```
 - View logs for a specific service:
   ```bash
   kubectl logs <pod-name>
@@ -115,17 +147,25 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
   To access your app from a local browser for development and testing, you can set up port forwarding to the UI service using this command:
   ```bash
   kubectl port-forward svc/fxp-ui 8080:80 -n fxp-apps
-  kubectl port-forward svc/fxp-gateway 8081:80 -n fxp-apps
-  kubectl port-forward svc/fxp-prediction 8082:80 -n fxp-apps
-  kubectl port-forward svc/fxp-data-storage 8083:80 -n fxp-apps
   ```
+  ```bash
+  kubectl port-forward svc/fxp-gateway 8081:80 -n fxp-apps
+   ```
+  ```bash
+  kubectl port-forward svc/fxp-prediction 8082:80 -n fxp-apps
+   ```
+  ```bash
+  kubectl port-forward svc/fxp-data-storage 8083:80 -n fxp-apps
+   ```
  
 ### Updating the Application
 - To update any service, rebuild the Docker image and update the Kubernetes deployment:
   ```bash
   docker build -t forex-service:new ./path/to/service/Dockerfile
-  kubectl set image deployment/forex-service forex-service=forex-service:new
   ```
+  ```bash
+  kubectl set image deployment/forex-service forex-service=forex-service:new
+   ```
 
 ### Cleaning Up
 - To stop and remove all running services:
