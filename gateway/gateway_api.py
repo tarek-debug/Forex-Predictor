@@ -47,6 +47,19 @@ def predict():
 
 
 '''
+@app.route('/health')
+def health_check():
+    # Add your custom health check logic here
+    print("checking health")
+    if all_required_services_are_running():
+        return 'OK', 200
+    else:
+        return 'Service Unavailable', 500
+# Example health check logic, replace it with your actual logic
+def all_required_services_are_running():
+    # Replace this with your logic to check the health of your services
+    # For example, check if the required processes are running
+    return True
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -113,4 +126,4 @@ def gateway_clear_historical_data(username):
     return jsonify({"success": True}), response.status_code if response.status_code == 200 else (jsonify({"error": "Failed"}), 500)
 
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5001)

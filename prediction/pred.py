@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 # Directory where your models and scalers are saved
 model_save_dir = "prediction_models"
-DATA_STORAGE_SERVICE_URL = os.environ.get('DATA_STORAGE_SERVICE_URL', 'http://localhost:5003')
 
 def fetch_recent_exchange_rates(base_currency, target_currency, num_days=60):
     end_date = pd.Timestamp.now()
@@ -53,6 +52,19 @@ def rolling_forecast(scaler, model, scaled_data, n_steps, n_future):
         input_seq = np.append(input_seq[1:], predicted_scaled, axis=0)
     
     return np.array(predictions_scaled)
+@app.route('/health')
+def health_check():
+    # Add your custom health check logic here
+    print("checking health")
+    if all_required_services_are_running():
+        return 'OK', 200
+    else:
+        return 'Service Unavailable', 500
+# Example health check logic, replace it with your actual logic
+def all_required_services_are_running():
+    # Replace this with your logic to check the health of your services
+    # For example, check if the required processes are running
+    return True
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -77,6 +89,8 @@ def predict():
     future_dates = [df_recent_rates.index[-1] + pd.Timedelta(days=i) for i in range(1, n_future+1)]
     predictions = [{"date": date.strftime('%Y-%m-%d'), "prediction": float(prediction)} for date, prediction in zip(future_dates, future_predictions.flatten())]
     '''
+    DATA_STORAGE_SERVICE_URL = os.environ.get('DATA_STORAGE_SERVICE_URL', 'http://localhost:5003')
+
        # Include initial request details in the data sent to data storage
     post_data = {
         "username": username,

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: fxp-ui
-        image: tarek111778/fxp-ui-image:v0.0.4
+        image: tarek111778/fxp-ui-image:v0.0.5
         imagePullPolicy: Always
         resources:
           requests:
@@ -28,7 +28,7 @@ spec:
           - containerPort: 5000  # Changed from 80 to 5000
         env:
           - name: GATEWAY_API_URL
-            value: "http://fxp-gateway:5001"
+            value: "http://fxp-gateway:80"
         readinessProbe:
           httpGet:
             path: /health

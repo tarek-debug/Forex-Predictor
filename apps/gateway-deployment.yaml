@@ -15,11 +15,11 @@ spec:
     spec:
       containers:
       - name: fxp-gateway
-        image: tarek111778/fxp-gateway-image:v1
+        image: tarek111778/fxp-gateway-image:v0.0.3
         ports:
         - containerPort: 5001
         env:
         - name: PREDICTION_SERVICE_URL
-          value: "http://fxp-prediction:5002"
+          value: "http://fxp-prediction:80"
         - name: DATA_STORAGE_SERVICE_URL
-          value: "http://fxp-data-storage:5003"
+          value: "http://fxp-data-storage:80"

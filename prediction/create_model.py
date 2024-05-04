@@ -33,7 +33,7 @@ def interpolate_data_with_spline(data, num_points):
 
     return new_data
 '''
-def interpolate_data(data):
+def int(data):
     new_data = []
     for i in range(len(data) - 1):
         current_point = data[i]
