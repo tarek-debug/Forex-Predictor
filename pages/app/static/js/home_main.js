@@ -111,15 +111,30 @@ function displayPredictionResults(data) {
     const results = document.querySelector('.results');
     results.innerHTML = ''; // Clear existing results
 
-    if (Array.isArray(data)) {
+    if (Array.isArray(data) && data.length > 0) {
         const lastPrediction = data[data.length - 1];
         const predictionText = `Last Prediction - Date: ${lastPrediction.date}, Prediction: ${lastPrediction.prediction.toFixed(4)}`;
         const lastResult = document.createElement('div');
         lastResult.textContent = predictionText;
         results.appendChild(lastResult);
     } else {
-        // Handle other types of responses (errors, single data points, etc.)
-        results.textContent = JSON.stringify(data, null, 2);
+        // Handle errors or no data with a custom message and an emoji
+        const errorText = "Oopsies, the prediction failed, please try again later 😔";
+        const errorDisplay = document.createElement('div');
+        errorDisplay.textContent = errorText;
+        errorDisplay.style.color = 'red'; // Change text color to red for errors
+        errorDisplay.style.margin = '10px 0';
+        errorDisplay.style.fontSize = '16px';
+        errorDisplay.style.fontWeight = 'bold';
+
+        // Optionally, add a retry button
+        const retryButton = document.createElement('button');
+        retryButton.textContent = 'Retry';
+        retryButton.style.marginTop = '10px';
+        retryButton.addEventListener('click', sendPrediction); // Re-run the prediction function on click
+
+        results.appendChild(errorDisplay);
+        results.appendChild(retryButton); // Add the retry button below the error message
     }
 }
 
