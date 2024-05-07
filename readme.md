@@ -189,21 +189,7 @@ kubectl get nodes
   ```bash
   kubectl logs <pod-name>
   ```
-### Accessing the App Locally (Optional)
-  To access your app from a local browser for development and testing, you can set up port forwarding to the UI service using this command:
-  ```bash
-  kubectl port-forward svc/fxp-ui 8080:80 -n fxp-apps
-  ```
-  ```bash
-  kubectl port-forward svc/fxp-gateway 8081:80 -n fxp-apps
-   ```
-  ```bash
-  kubectl port-forward svc/fxp-prediction 8082:80 -n fxp-apps
-   ```
-  ```bash
-  kubectl port-forward svc/fxp-data-storage 8083:80 -n fxp-apps
-   ```
-  
+
 ### Updating the Application
 - To update any service, rebuild the Docker image and update the Kubernetes deployment:
   ```bash
