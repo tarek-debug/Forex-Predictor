@@ -136,6 +136,11 @@ kubectl get nodes
    ```bash
    kubectl create namespace fxp-apps
    ```
+   1. apply all yaml files in the folder:
+   ```bash
+   kubectl apply -f . -n fxp-apps
+   ```
+   2. Or, if you prefer each one individually:
    ```bash
    kubectl apply -f configmap.yaml
    ```
@@ -167,7 +172,7 @@ kubectl get nodes
    kubectl apply -f fxp-ui-ingress.yaml
    ```
 
-6. **Access the Application**:
+7. **Access the Application**:
    - Use `minikube service list` to find the IP and port of the UI service or check your cloud Kubernetes service dashboard.
    - Access the Forex Predictor UI via the provided URL in your browser.
 
