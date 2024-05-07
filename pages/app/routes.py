@@ -1,10 +1,36 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+from flask_swagger_ui import get_swaggerui_blueprint
 import requests
 import os
 
 app = Flask(__name__)
 app.secret_key = 'your_random_secret_key_here'  # Keep this really secret!
 GATEWAY_API_URL = os.environ.get('GATEWAY_API_URL', 'http://localhost:5001')
+
+# Swagger UI configuration
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Our API url (can be a static file or dynamically generated)
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "Your Application API"
+    },
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+@app.route('/enable-swagger')
+def enable_swagger():
+    session['enable_swagger'] = True
+    return redirect(url_for('swagger_ui'))
+
+@app.route('/api/docs')
+def swagger_ui():
+    if 'enable_swagger' in session:
+        return redirect(url_for('swagger_ui'))
+    else:
+        return 'Swagger UI is disabled', 403
 
 @app.route('/')
 def home():

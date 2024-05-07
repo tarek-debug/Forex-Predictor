@@ -1,8 +1,35 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session, redirect, url_for
+from flask_swagger_ui import get_swaggerui_blueprint
 import requests
 import os
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Ensure you have a secret key for sessions
+
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Your API url (can be a static file)
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Your Application API"
+    }
+)
+
+@app.route('/enable-swagger')
+def enable_swagger():
+    session['swagger_enabled'] = True
+    return redirect(url_for('swaggerui_blueprint.swagger_ui'))
+
+@app.route(SWAGGER_URL)
+def swagger_ui():
+    if session.get('swagger_enabled'):
+        return swaggerui_blueprint.send_static_file('index.html')
+    else:
+        return jsonify({"error": "Unauthorized access"}), 403
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 # Define URLs for each service
 PREDICTION_SERVICE_URL = os.environ.get('PREDICTION_SERVICE_URL', 'http://localhost:5002')

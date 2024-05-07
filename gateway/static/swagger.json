@@ -1,0 +1,347 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Your Application API",
+      "description": "API for managing predictions and historical data",
+      "version": "1.0.0"
+    },
+    "host": "localhost:5001",
+    "basePath": "/",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/api/docs": {
+        "get": {
+          "summary": "Display Swagger UI",
+          "description": "Endpoint to display the Swagger UI for API documentation.",
+          "responses": {
+            "200": {
+              "description": "Swagger UI displayed"
+            },
+            "403": {
+              "description": "Unauthorized access"
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "User login",
+          "description": "Authenticate users and provide access.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "user",
+              "description": "User login data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserCredentials"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Login successful"
+            },
+            "401": {
+              "description": "Login failed"
+            }
+          }
+        }
+      },
+      "/register": {
+        "post": {
+          "summary": "Register new user",
+          "description": "Register a new user in the system.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "user",
+              "description": "Registration data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/NewUser"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Registration successful"
+            },
+            "400": {
+              "description": "Registration failed"
+            }
+          }
+        }
+      },
+      "/health": {
+        "get": {
+          "summary": "Health check",
+          "description": "Check the health of backend services.",
+          "responses": {
+            "200": {
+              "description": "OK - service is running"
+            },
+            "500": {
+              "description": "Service Unavailable"
+            }
+          }
+        }
+      },
+      "/predict": {
+        "post": {
+          "summary": "Make a prediction",
+          "description": "Generate predictions based on provided data.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "predictionRequest",
+              "description": "Data needed for making predictions",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/PredictionRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Prediction generated successfully"
+            },
+            "500": {
+              "description": "Prediction service failed"
+            }
+          }
+        }
+      },
+      "/store_historical_data": {
+        "post": {
+          "summary": "Store historical data",
+          "description": "Store historical data for future use.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "historicalData",
+              "description": "Historical data to be stored",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/HistoricalData"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Data stored successfully"
+            },
+            "500": {
+              "description": "Failed to store data"
+            }
+          }
+        }
+      },
+      "/fetch_historical_data": {
+        "post": {
+          "summary": "Fetch historical data",
+          "description": "Retrieve historical data based on user.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "userData",
+              "description": "User's identifier to fetch data for",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserData"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Data retrieved successfully"
+            },
+            "500": {
+              "description": "Failed to retrieve data"
+            }
+          }
+        }
+      },
+      "/fetch_predictions": {
+        "post": {
+          "summary": "Fetch predictions",
+          "description": "Retrieve predictions for the user.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "userData",
+              "description": "User's identifier to fetch predictions for",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserData"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Predictions retrieved successfully"
+            },
+            "500": {
+              "description": "Failed to retrieve predictions"
+            }
+          }
+        }
+      },
+      "/delete_prediction/{username}/{index}": {
+        "delete": {
+          "summary": "Delete a specific prediction",
+          "description": "Delete a specific prediction for a user by index.",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Username of the user"
+            },
+            {
+              "name": "index",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "Index of the prediction to be deleted"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Prediction deleted successfully"
+            },
+            "404": {
+              "description": "Prediction not found"
+            }
+          }
+        }
+      },
+      "/clear_predictions/{username}": {
+        "delete": {
+          "summary": "Clear all predictions",
+          "description": "Delete all predictions stored for a user.",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Username of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "All predictions cleared successfully"
+            },
+            "404": {
+              "description": "No predictions to clear"
+            }
+          }
+        }
+      },
+      "/delete_historical_data/{username}/{index}": {
+        "delete": {
+          "summary": "Delete a specific historical data",
+          "description": "Delete a specific item of historical data for a user by index.",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Username of the user"
+            },
+            {
+              "name": "index",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "Index of the historical data to be deleted"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Historical data deleted successfully"
+            },
+            "404": {
+              "description": "Historical data not found"
+            }
+          }
+        }
+      },
+      "/clear_historical_data/{username}": {
+        "delete": {
+          "summary": "Clear all historical data",
+          "description": "Delete all historical data stored for a user.",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Username of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "All historical data cleared successfully"
+            },
+            "404": {
+              "description": "No historical data to clear"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "UserCredentials": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": {"type": "string"},
+          "password": {"type": "string"}
+        }
+      },
+      "NewUser": {
+        "type": "object",
+        "required": ["username", "password", "email"],
+        "properties": {
+          "username": {"type": "string"},
+          "password": {"type": "string"},
+          "email": {"type": "string"}
+        }
+      },
+      "PredictionRequest": {
+        "type": "object",
+        "required": ["username", "base_currency", "target_currency", "future_date"],
+        "properties": {
+          "username": {"type": "string"},
+          "base_currency": {"type": "string"},
+          "target_currency": {"type": "string"},
+          "future_date": {"type": "string", "format": "date"}
+        }
+      },
+      "HistoricalData": {
+        "type": "object",
+        "required": ["username", "base_currency", "target_currency", "date"],
+        "properties": {
+          "username": {"type": "string"},
+          "base_currency": {"type": "string"},
+          "target_currency": {"type": "string"},
+          "date": {"type": "string", "format": "date"}
+        }
+      },
+      "UserData": {
+        "type": "object",
+        "required": ["username"],
+        "properties": {
+          "username": {"type": "string"}
+        }
+      }
+    }
+  }
+  

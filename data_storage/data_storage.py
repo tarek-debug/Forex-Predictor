@@ -1,9 +1,30 @@
-from datetime import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, url_for, session
+from flask_swagger_ui import get_swaggerui_blueprint
 import json
 import os
+from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = 'very_secret_key'  # Needed for session management
+
+SWAGGER_URL = '/api/docs'  # URL for Swagger UI
+API_URL = '/static/swagger.json'  # URL for swagger.json file
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={'app_name': "Predictive Model API"}
+)
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+@app.route('/enable-swagger')
+def enable_swagger():
+    # Assuming you use a simple authentication condition to enable Swagger
+    if request.args.get('auth_token') == 'your_secret_token':
+        session['swagger_enabled'] = True
+        return redirect(url_for('flask_swagger_ui.get_swagger_ui_blueprint'))
+    return jsonify({"error": "Unauthorized"}), 403
 
 # Define the paths to the JSON storage files
 CREDENTIALS_FILE = 'storage/credentials.json'
@@ -164,6 +185,13 @@ def clear_historical_data(username):
     return jsonify({'error': 'Not found'}), 404
 
 
+
+@app.route(SWAGGER_URL)
+def swagger_ui():
+    if session.get('swagger_enabled', False):
+        return swaggerui_blueprint.send_static_file('index.html')
+    else:
+        return jsonify({'error': 'Unauthorized access to Swagger UI'}), 403
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5003)

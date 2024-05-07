@@ -1,0 +1,335 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Your Application API",
+    "version": "1.0",
+    "description": "API to manage user interactions and data processes."
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": ["http", "https"],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Authenticate users and provide session management.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginData",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "401": {
+            "description": "Login failed"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "summary": "User logout",
+        "description": "Logs out current logged-in user session.",
+        "responses": {
+          "302": {
+            "description": "Redirect to login page"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Register new user",
+        "description": "Registers a new user.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userData",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserData"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Registration successful"
+          },
+          "400": {
+            "description": "Registration failed or username already exists"
+          }
+        }
+      }
+    },
+    "/predict": {
+      "post": {
+        "summary": "Make a prediction",
+        "description": "Generate predictions based on user provided data.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "predictionData",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PredictionData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Prediction successful"
+          },
+          "401": {
+            "description": "User not logged in"
+          },
+          "500": {
+            "description": "Prediction failed"
+          }
+        }
+      }
+    },
+    "/learnmore": {
+      "get": {
+        "summary": "Learn More",
+        "description": "Provides additional information about the services.",
+        "responses": {
+          "200": {
+            "description": "Returns learn more page"
+          },
+          "302": {
+            "description": "Redirect to login"
+          }
+        }
+      }
+    },
+    "/history": {
+      "get": {
+        "summary": "View User History",
+        "description": "Displays user history based on session.",
+        "responses": {
+          "200": {
+            "description": "Returns history page"
+          },
+          "302": {
+            "description": "Redirect to login"
+          }
+        }
+      }
+    },
+    "/log_historical_data": {
+      "post": {
+        "summary": "Log Historical Data",
+        "description": "Stores historical data for the user.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "historicalData",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HistoricalData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historical data logged successfully"
+          },
+          "401": {
+            "description": "User not logged in"
+          }
+        }
+      }
+    },
+    "/historical_data_history/{username}": {
+      "get": {
+        "summary": "Fetch Historical Data by Username",
+        "description": "Retrieves historical data for a specific user.",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historical data fetched successfully"
+          },
+          "500": {
+            "description": "Failed to fetch data"
+          }
+        }
+      }
+    },
+    "/prediction_history/{username}": {
+      "get": {
+        "summary": "Fetch Prediction History by Username",
+        "description": "Retrieves prediction history for a specific user.",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Prediction history fetched successfully"
+          },
+          "500": {
+            "description": "Failed to fetch predictions"
+          }
+        }
+      }
+    },
+    "/delete_prediction/{index}": {
+      "delete": {
+        "summary": "Delete a Prediction",
+        "description": "Deletes a specific prediction by index.",
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Prediction deleted successfully"
+          },
+          "401": {
+            "description": "User not logged in"
+          },
+          "404": {
+            "description": "Prediction not found"
+          }
+        }
+      }
+    },
+    "/clear_predictions": {
+      "delete": {
+        "summary": "Clear All Predictions",
+        "description": "Clears all predictions for the logged-in user.",
+        "responses": {
+          "200": {
+            "description": "All predictions cleared successfully"
+          },
+          "401": {
+            "description": "User not logged in"
+          }
+        }
+      }
+    },
+    "/delete_historical_data/{index}": {
+      "delete": {
+        "summary": "Delete Historical Data",
+        "description": "Deletes a specific item of historical data by index.",
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historical data deleted successfully"
+          },
+          "401": {
+            "description": "User not logged in"
+          },
+          "404": {
+            "description": "Historical data not found"
+          }
+        }
+      }
+    },
+    "/clear_historical_data": {
+      "delete": {
+        "summary": "Clear All Historical Data",
+        "description": "Clears all historical data for the logged-in user.",
+        "responses": {
+          "200": {
+            "description": "All historical data cleared successfully"
+          },
+          "401": {
+            "description": "User not logged in"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginData": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserData": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "PredictionData": {
+      "type": "object",
+      "properties": {
+        "details": {
+          "type": "object",
+          "properties": {
+            "data1": {
+              "type": "string"
+            },
+            "data2": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "HistoricalData": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "detail1": {
+              "type": "string"
+            },
+            "detail2": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

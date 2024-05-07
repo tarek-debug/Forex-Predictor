@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session, redirect, url_for
+from flask_swagger_ui import get_swaggerui_blueprint
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import load_model
@@ -8,6 +9,20 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
+app.secret_key = 'your_random_secret_key_here'
+
+# Swagger UI configuration
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Our API url (can be a static file)
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "Prediction API"
+    }
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 # Directory where your models and scalers are saved
 model_save_dir = "prediction_models"
@@ -65,6 +80,11 @@ def all_required_services_are_running():
     # Replace this with your logic to check the health of your services
     # For example, check if the required processes are running
     return True
+
+@app.route('/enable-swagger')
+def enable_swagger():
+    session['enable_swagger'] = True
+    return redirect(url_for('swagger_ui.show'))
 
 @app.route('/predict', methods=['POST'])
 def predict():

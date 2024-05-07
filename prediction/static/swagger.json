@@ -1,0 +1,83 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Prediction API",
+        "description": "API for making currency predictions based on historical data",
+        "version": "1.0.0"
+    },
+    "host": "localhost:5002",
+    "schemes": ["http"],
+    "basePath": "/",
+    "produces": ["application/json"],
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Check health of the service",
+                "responses": {
+                    "200": {
+                        "description": "Service is up"
+                    },
+                    "500": {
+                        "description": "Service is down"
+                    }
+                }
+            }
+        },
+        "/predict": {
+            "post": {
+                "summary": "Predict future currency values",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PredictRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Prediction data returned",
+                        "schema": {
+                            "$ref": "#/definitions/PredictResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request parameters"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "PredictRequest": {
+            "type": "object",
+            "properties": {
+                "username": {"type": "string"},
+                "base_currency": {"type": "string"},
+                "target_currency": {"type": "string"},
+                "future_date": {"type": "string"}
+            },
+            "required": ["username", "base_currency", "target_currency", "future_date"]
+        },
+        "PredictResponse": {
+            "type": "object",
+            "properties": {
+                "predictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Prediction"
+                    }
+                }
+            }
+        },
+        "Prediction": {
+            "type": "object",
+            "properties": {
+                "date": {"type": "string"},
+                "prediction": {"type": "number"}
+            }
+        }
+    }
+}
