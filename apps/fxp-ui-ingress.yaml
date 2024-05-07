@@ -4,6 +4,7 @@ metadata:
   name: fxp-ui-ingress
   namespace: fxp-apps
 spec:
+  ingressClassName: nginx
   defaultBackend:
     service:
       name: fxp-ui

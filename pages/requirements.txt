@@ -1,3 +1,4 @@
 Flask
 requests==2.27.1
 Werkzeug
+flask-swagger-ui

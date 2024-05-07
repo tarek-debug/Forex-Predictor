@@ -23,14 +23,7 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 @app.route('/enable-swagger')
 def enable_swagger():
     session['enable_swagger'] = True
-    return redirect(url_for('swagger_ui'))
-
-@app.route('/api/docs')
-def swagger_ui():
-    if 'enable_swagger' in session:
-        return redirect(url_for('swagger_ui'))
-    else:
-        return 'Swagger UI is disabled', 403
+    return redirect(SWAGGER_URL)
 
 @app.route('/')
 def home():
@@ -39,39 +32,36 @@ def home():
         return render_template('home.html')
     else:
         return redirect(url_for('login'))
+
 @app.route('/health')
 def health_check():
     # Add your custom health check logic here
-    print("checking health")
     if all_required_services_are_running():
         return 'OK', 200
     else:
         return 'Service Unavailable', 500
-# Example health check logic, replace it with your actual logic
+
 def all_required_services_are_running():
-    # Replace this with your logic to check the health of your services
-    # For example, check if the required processes are running
+    # Replace this with your actual logic to check the health of your services
     return True
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    print("logging in...")
     if request.method == 'POST':
         user_data = request.json
         response = requests.post(f"{GATEWAY_API_URL}/login", json=user_data)
         if response.status_code == 200:
-            session['username'] = user_data['username']  # Save username in session
+            session['username'] = user_data['username']
             return jsonify({'success': True, 'message': 'Login successful'})
         else:
             return jsonify({'error': 'Login failed'}), response.status_code
     return render_template('login.html')
 
-
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    return redirect(url_for('login.html'))
-    
+    return redirect(url_for('login'))
+
 @app.route('/register', methods=['POST'])
 def register():
     user_data = request.json
@@ -85,11 +75,7 @@ def register():
 def predict():
     if 'username' in session:
         user_data = request.get_json()
-        user_data['username'] = session['username']  # Append username from session
-        print(user_data)  # Debugging output
         response = requests.post(f"{GATEWAY_API_URL}/predict", json=user_data)
-        print(response.status_code)  # Check status code
-        print(response.text)  # Check raw response text
         if response.status_code == 200:
             try:
                 return jsonify(response.json()), 200
@@ -102,30 +88,26 @@ def predict():
 
 @app.route('/learnmore')
 def learn_more():
-    # You can include any necessary logic here, such as checking if the user is logged in
     if 'username' in session:
         return render_template('learnmore.html')
     else:
         return redirect(url_for('login'))
 
-
 @app.route('/history')
 def history():
     if 'username' in session:
-        username = session['username']
-        return render_template('history.html', username=username)
+        return render_template('history.html', username=session['username'])
     else:
         return redirect(url_for('login'))
-
 
 @app.route('/log_historical_data', methods=['POST'])
 def log_historical_data():
     if 'username' in session:
         data = request.get_json()
-        # Send data to gateway to be logged
         response = requests.post(f"{GATEWAY_API_URL}/store_historical_data", json=data)
         return jsonify(response.json()), response.status_code
     return jsonify({'error': 'User not logged in'}), 401
+
 @app.route('/historical_data_history/<username>')
 def historical_data_history(username):
     response = requests.post(f"{GATEWAY_API_URL}/fetch_historical_data", json={"username": username})
@@ -135,7 +117,7 @@ def historical_data_history(username):
 def prediction_history(username):
     try:
         response = requests.post(f"{GATEWAY_API_URL}/fetch_predictions", json={"username": username})
-        response.raise_for_status()  # Check for HTTP errors
+        response.raise_for_status()
         return jsonify(response.json()), response.status_code
     except requests.exceptions.HTTPError:
         return jsonify({'error': 'Failed to fetch predictions from gateway'}), 500
@@ -143,6 +125,7 @@ def prediction_history(username):
         return jsonify({'error': 'Network or connection issue'}), 500
     except ValueError:
         return jsonify({'error': 'Invalid JSON received'}), 500
+
 @app.route('/delete_prediction/<int:index>', methods=['DELETE'])
 def delete_prediction(index):
     if 'username' in session:
@@ -170,9 +153,6 @@ def clear_historical_data():
         response = requests.delete(f"{GATEWAY_API_URL}/clear_historical_data/{session['username']}")
         return jsonify(response.json()), response.status_code
     return jsonify({'error': 'User not logged in'}), 401
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)  # Run the application on port 5000
