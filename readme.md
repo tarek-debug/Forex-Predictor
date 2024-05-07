@@ -90,11 +90,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    ```
 
 4. **Create Namespace and Deploy Services to Kubernetes**: Make sure to change to rename the image container names to the ones you built in your dockerhub account.
-   - Apply the Kubernetes configurations:
-   ```bash
-    kubectl apply -f apps/*.yaml
-   ```
-   - Or if you prefer to do them individually:
+
    ```bash
    cd apps
    ```
