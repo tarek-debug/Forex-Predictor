@@ -57,7 +57,8 @@ This section provides detailed instructions on deploying and running the Forex P
 1. **Docker**: Install Docker on your system to create containers for each service.
 2. **Kubernetes**: Install a Kubernetes cluster management tool, such as Minikube or use a cloud provider's Kubernetes service.
 3. **kubectl**: Install kubectl to interact with your Kubernetes cluster.
-4. **Helm**: Optionally, install Helm to manage Kubernetes charts easily.
+4. **gCloud CLI**: Install gCloud CLI to connect to GKE clusters
+5. **Helm**: Optionally, install Helm to manage Kubernetes charts easily.
 
 ### Deploying Forex Predictor
 Follow these steps to deploy the Forex Predictor application on Kubernetes:
@@ -158,7 +159,43 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
   ```bash
   kubectl port-forward svc/fxp-data-storage 8083:80 -n fxp-apps
    ```
+### Connecting to GKE Cluster
+- Install gCloud CLI. Once the gcloud CLI is installed, be sure to restart VSCode or other IDE or command line shell after this to get the path updates.
+- Log into Google with the IAM
+
+```bash
+gcloud auth login
+```
+- Get the GKE context. Once the above authentication works, run:
  
+```bash
+gcloud components install gke-gcloud-auth-plugin
+```
+- Then, run
+
+```bash
+gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project horizontal-ray-375222
+```
+
+- To see the contexts list of kubernewtes clusters you have enter
+```bash 
+kubectl config get-contexts
+```
+
+- To see the current context, enter-
+```bash 
+kubectl config current-context 
+```
+
+- To switch to the GKE Kubernets cluster, enter-
+```bash
+kubectl config set-context gke_horizontal-ray-375222_us-central1_autopilot-cluster-1
+``` 
+- To confirm you can access the cluster 
+```bash 
+kubectl get nodes
+```
+  
 ### Updating the Application
 - To update any service, rebuild the Docker image and update the Kubernetes deployment:
   ```bash
