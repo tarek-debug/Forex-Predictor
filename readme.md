@@ -155,14 +155,22 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
   ```
 ## Accessing the Application Locally
 
-The `fxp-ui` service in our Forex Predictor application is exposed via a Kubernetes LoadBalancer service, which maps the service directly to an accessible IP address. This setup simplifies the process of accessing the application from your local machine for development and testing purposes.
-
 ### Access the UI Service
 
-When running in a local development environment such as Minikube or when using certain Kubernetes configurations, the LoadBalancer may assign a simple `localhost` address as the EXTERNAL-IP. This makes it very straightforward to access the service:
+To access the `fxp-ui` service locally, you can easily navigate to `localhost` if your Kubernetes environment, such as Minikube or Docker Desktop, sets up the LoadBalancer service to use `localhost` as the EXTERNAL-IP. Here are the specific commands to check and access the service:
 
+1. **Check the Service Details**:
+   Use the following `kubectl` command to retrieve details about the `fxp-ui` service, including the EXTERNAL-IP and PORT(S):
+   ```bash
+   kubectl get service fxp-ui -n fxp-apps
+This will provide output similar to:
+```bash
+NAME     TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+fxp-ui   LoadBalancer   10.108.27.125   localhost     80:30562/TCP   4m54s
+
+```
 1. **Open your web browser.**
-2. **Enter the URL in the address bar:**
+2. **Enter the URL ( in our case, it is localhost) in the address bar:**
    ```plaintext
    http://localhost
 
