@@ -142,35 +142,36 @@ kubectl get nodes
    ```
    2. Or, if you prefer each one individually:
    ```bash
-   kubectl apply -f configmap.yaml
+   kubectl apply -f configmap.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f data-storage-deployment.yaml
+   kubectl apply -f data-storage-deployment.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f data-storage-service.yaml
+   kubectl apply -f data-storage-service.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f gateway-deployment.yaml
+   kubectl apply -f gateway-deployment.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f gateway-service.yaml
+   kubectl apply -f gateway-service.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f prediction-deployment.yaml
+   kubectl apply -f prediction-deployment.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f prediction-service.yaml
+   kubectl apply -f prediction-service.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f ui-deployment.yaml
+   kubectl apply -f ui-deployment.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f ui-service.yaml
+   kubectl apply -f ui-service.yaml -n fxp-apps
    ```
    ```bash
-   kubectl apply -f fxp-ui-ingress.yaml
+   kubectl apply -f fxp-ui-ingress.yaml -n fxp-apps
    ```
+
 
 7. **Access the Application**:
    - Use `minikube service list` to find the IP and port of the UI service or check your cloud Kubernetes service dashboard.
