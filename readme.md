@@ -1,5 +1,5 @@
 # ForEx Predictor
-(Forex_logo.png)
+![Forex Logo](Forex_logo.png)
 
 ## Purpose
 ForEx Predictor s aims to enhance decision-making for traders and businesses by offering predictive insights and actionable recommendations on currency exchange rate movements. This project, leveraging a microservices architecture with machine learning models and API integrations for real-time data, serves as a comprehensive tool for navigating the complexities of the foreign exchange market.
