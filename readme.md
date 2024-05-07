@@ -64,9 +64,47 @@ This section provides detailed instructions on deploying and running the Forex P
 Follow these steps to deploy the Forex Predictor application on Kubernetes:
 
 1. **Start Your Kubernetes Cluster**:
-   - For Minikube: Run `minikube start` to initiate a local Kubernetes cluster.
 
-2. **Clone the Repository**:
+   - For Minikube: Run `minikube start` to initiate a local Kubernetes cluster.
+  
+2. **Connecting to GKE Cluster**:
+- Install gCloud CLI. Once the gcloud CLI is installed, be sure to restart VSCode or other IDE or command line shell after this to get the path updates.
+- Log into Google with the IAM
+
+```bash
+gcloud auth login
+```
+- Get the GKE context. Once the above authentication works, run:
+ 
+```bash
+gcloud components install gke-gcloud-auth-plugin
+```
+- Then, run
+
+```bash
+gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project horizontal-ray-375222
+```
+
+- To see the contexts list of kubernewtes clusters you have enter
+```bash 
+kubectl config get-contexts
+```
+
+- To see the current context, enter-
+```bash 
+kubectl config current-context 
+```
+
+- To switch to the GKE Kubernets cluster, enter-
+```bash
+kubectl config set-context gke_horizontal-ray-375222_us-central1_autopilot-cluster-1
+``` 
+- To confirm you can access the cluster 
+```bash 
+kubectl get nodes
+```
+  
+3. **Clone the Repository**:
    - Clone this repository to your local machine to access the Kubernetes configuration files.
    ```bash
    git clone https://github.com/your-username/forex-predictor.git
@@ -75,7 +113,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    cd forex-predictor
    ```
 
-3. **Load Docker Images**: Replace Dockerhub username with yours.
+4. **Load Docker Images**: Replace Dockerhub username with yours.
    - Build Docker images for each service or pull them from your registry.
    ```bash
    docker build -t [DockerHub Username]/fxp-ui-image:v0.0.1 ./pages
@@ -90,7 +128,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    docker build -t [DockerHub Username]forex-data-storage:v0.0.1 ./data_storage
    ```
 
-4. **Create Namespace and Deploy Services to Kubernetes**: Make sure to change to rename the image container names to the ones you built in your dockerhub account.
+5. **Create Namespace and Deploy Services to Kubernetes**: Make sure to change to rename the image container names to the ones you built in your dockerhub account.
 
    ```bash
    cd apps
@@ -129,7 +167,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    kubectl apply -f fxp-ui-ingress.yaml
    ```
 
-5. **Access the Application**:
+6. **Access the Application**:
    - Use `minikube service list` to find the IP and port of the UI service or check your cloud Kubernetes service dashboard.
    - Access the Forex Predictor UI via the provided URL in your browser.
 
@@ -159,42 +197,6 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
   ```bash
   kubectl port-forward svc/fxp-data-storage 8083:80 -n fxp-apps
    ```
-### Connecting to GKE Cluster
-- Install gCloud CLI. Once the gcloud CLI is installed, be sure to restart VSCode or other IDE or command line shell after this to get the path updates.
-- Log into Google with the IAM
-
-```bash
-gcloud auth login
-```
-- Get the GKE context. Once the above authentication works, run:
- 
-```bash
-gcloud components install gke-gcloud-auth-plugin
-```
-- Then, run
-
-```bash
-gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project horizontal-ray-375222
-```
-
-- To see the contexts list of kubernewtes clusters you have enter
-```bash 
-kubectl config get-contexts
-```
-
-- To see the current context, enter-
-```bash 
-kubectl config current-context 
-```
-
-- To switch to the GKE Kubernets cluster, enter-
-```bash
-kubectl config set-context gke_horizontal-ray-375222_us-central1_autopilot-cluster-1
-``` 
-- To confirm you can access the cluster 
-```bash 
-kubectl get nodes
-```
   
 ### Updating the Application
 - To update any service, rebuild the Docker image and update the Kubernetes deployment:
