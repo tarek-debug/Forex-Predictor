@@ -226,7 +226,7 @@ Frameworks and Libraries - Flask, TensorFlow, Docker, Kubernetes
 Hamim, Tarek, Yusuke
 
 ## Contributing
-We encourage contributions to CurrencyExchangeInsights. See our contributing guidelines for more details on participating.
+We encourage contributions to ForEx Predictor. See our contributing guidelines for more details on participating.
 
 ## License
 This project is licensed under the MIT License. Refer to the LICENSE file for details.
