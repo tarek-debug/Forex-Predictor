@@ -71,7 +71,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
 2. **Clone the Repository**:
    - Clone this repository to your local machine to access the Kubernetes configuration files.
    ```bash
-   git clone [https://github.com/your-username/forex-predictor.git](https://github.com/tarek-debug/Forex-Predictor.git)
+   git clone https://github.com/tarek-debug/Forex-Predictor.git
    ```
    ```bash
    cd forex-predictor
