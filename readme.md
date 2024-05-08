@@ -4,6 +4,12 @@
 ## Purpose
 ForEx Predictor s aims to enhance decision-making for traders and businesses by offering predictive insights and actionable recommendations on currency exchange rate movements. This project, leveraging a microservices architecture with machine learning models and API integrations for real-time data, serves as a comprehensive tool for navigating the complexities of the foreign exchange market.
 
+### Minimum Viable Product (MVP)
+The application aims to deliver
+- basic prediction service
+- simple user interface
+- capability of looking back at past searches done by a user
+
 ## Microservices Architecture
 
 ### Diagram
@@ -190,6 +196,26 @@ fxp-ui   LoadBalancer   10.108.27.125   localhost     80:30562/TCP   4m54s
   ```
 
 This setup provides a robust foundation for running the Forex Predictor application in a production-like environment on Kubernetes.
+
+### Usage Instructions
+Once the UI is up and running and you are able to see the login page, first register for an account and sign in. Once you login, you should see the following screen↓
+![Home](home.png)
+From here you are able to predict future exchange rates of two currencies. Make when you enter the date for both the prediction and historical data you put it in the format of YYYY-MM-DD where the months and dates include a 0 if the number is a single digit. As an example here is a picture of a prediction for the USD and JPY for May 7th, 2026↓
+![Prediction](prediction.png)
+You will be provided with a graph and you are able to hover over the points to see the exact exchange rate of a given date between the day you set to predict and the day you predicted (aka today.) 
+Historical data is similar↓
+![Historical](historical.png)
+You should be able to see the base currency, the date, and the rate.
+Over in the top right-hand corner you should see a logout button and to the left, a history button. That will take you to the history page of all the historical and predictive data you have looked up.
+![HistoryPage](historyPage.png)
+As seen in the screenshot the prediction and the historical data that has been looked up for the examples above are shown. If you click expand/compress you are able to check out the individual points predicted which are by day. You are also able to generate graph/hide graph to see the graph that has appeared when you predicted in the home page. For both prediction data and historical data you are able to delete your past searches individually or clear them all at once by clicking on clear prediction history or clear historical data.
+
+### Dependencies
+Languages - CSS, Python, JavaScript, HTML
+Frameworks and Libraries - Flask, TensorFlow, Docker, Kubernetes
+
+### Project Team Members
+Hamim, Tarek, Yusuke
 
 ## Contributing
 We encourage contributions to CurrencyExchangeInsights. See our contributing guidelines for more details on participating.
