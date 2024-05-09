@@ -80,7 +80,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    git clone https://github.com/tarek-debug/Forex-Predictor.git
    ```
    ```bash
-   cd forex-predictor
+   cd Forex-Predictor
    ```
 
 3. **Load Docker Images**: Replace Dockerhub username with yours.
