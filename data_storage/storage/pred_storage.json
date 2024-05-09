@@ -181,6 +181,37 @@
                     }
                 ]
             }
+        },
+        {
+            "timestamp": "2024-05-08T22:33:47.377341",
+            "data": {
+                "username": "tarek",
+                "base_currency": "USD",
+                "target_currency": "EUR",
+                "future_date": "2024-05-12",
+                "predictions": [
+                    {
+                        "date": "2024-05-09",
+                        "prediction": 0.9303126931190491
+                    },
+                    {
+                        "date": "2024-05-10",
+                        "prediction": 0.9300740361213684
+                    },
+                    {
+                        "date": "2024-05-11",
+                        "prediction": 0.929984986782074
+                    },
+                    {
+                        "date": "2024-05-12",
+                        "prediction": 0.9300224781036377
+                    },
+                    {
+                        "date": "2024-05-13",
+                        "prediction": 0.9301666021347046
+                    }
+                ]
+            }
         }
     ]
 }

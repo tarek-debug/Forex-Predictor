@@ -75,6 +75,9 @@ def register():
 def predict():
     if 'username' in session:
         user_data = request.get_json()
+        # Include 'username' from session into the data being sent to the gateway
+        user_data['username'] = session['username']
+        print(user_data)
         response = requests.post(f"{GATEWAY_API_URL}/predict", json=user_data)
         if response.status_code == 200:
             try:
