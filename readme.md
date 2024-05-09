@@ -183,15 +183,11 @@ fxp-ui   LoadBalancer   10.108.27.125   localhost     80:30562/TCP   4m54s
 ```bash
 kubectl port-forward svc/fxp-ui 8080:80 -n fxp-apps
 ```
+Access the app through the following link:
 ```bash
-kubectl port-forward svc/fxp-gateway 8081:80 -n fxp-apps
+http://127.0.0.1:8080/login
 ```
-```bash
-kubectl port-forward svc/fxp-prediction 8082:80 -n fxp-apps
-```
-```bash
-kubectl port-forward svc/fxp-data-storage 8083:80 -n fxp-apps
-```
+
 ### Updating the Application
 - To update any service, rebuild the Docker image and update the Kubernetes deployment:
   ```bash
