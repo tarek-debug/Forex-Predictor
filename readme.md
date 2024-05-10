@@ -176,9 +176,9 @@ fxp-ui   LoadBalancer   10.108.27.125   localhost     80:30562/TCP   4m54s
 
 ```
 1. **Open your web browser.**
-2. **Enter the URL ( in our case, it is localhost) in the address bar:**
+2. **Enter the URL to login ( in our case, it is localhost) in the address bar:**
    ```plaintext
-   http://localhost
+   http://localhost/login
 ### Access the UI Service through portforwarding
 ```bash
 kubectl port-forward svc/fxp-ui 8080:80 -n fxp-apps
