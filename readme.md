@@ -83,7 +83,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    cd Forex-Predictor
    ```
 
-3. **Load Docker Images**: Replace Dockerhub username with yours.
+3. **Load Docker Images (Optional)**: If you'd like to build your own docker imgaes and deploy those, follow these steps. Replace Dockerhub username with yours.
    - Build Docker images for each service or pull them from your registry.
    ```bash
    docker build -t [DockerHub Username]/fxp-ui-image:v0.0.1 ./pages
@@ -97,6 +97,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    ```bash
    docker build -t [DockerHub Username]forex-data-storage:v0.0.1 ./data_storage
    ```
+Once the images have been built, replace the image tags in yaml files with your own. Then, deploy them from apps directory. 
 
 4. **Create Namespace and Deploy Services to Kubernetes**: Make sure to change to rename the image container names to the ones you built in your dockerhub account.
 
@@ -142,12 +143,7 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
    kubectl apply -f fxp-ui-ingress.yaml -n fxp-apps
    ```
 
-
-5. **Access the Application**:
-   - Use `minikube service list` to find the IP and port of the UI service or check your cloud Kubernetes service dashboard.
-   - Access the Forex Predictor UI via the provided URL in your browser.
-
-### Monitoring and Logs
+5. ### Monitoring and Logs
 - Monitor the status of the pods and services using:
   ```bash
   kubectl get pods -n fxp-apps
@@ -159,27 +155,31 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
   ```bash
   kubectl logs <pod-name>
   ```
-## Accessing the Application
+6. ## Accessing the Application
 
 ### Access the UI Service through external ip
 
 To access the `fxp-ui` service locally, you can easily navigate to `localhost` if your Kubernetes environment, such as Minikube or Docker Desktop, sets up the LoadBalancer service to use `localhost` as the EXTERNAL-IP. Here are the specific commands to check and access the service:
 
-1. **Check the Service Details**:
+a. **Check the Service Details**:
    Use the following `kubectl` command to retrieve details about the `fxp-ui` service, including the EXTERNAL-IP and PORT(S):
+   
    ```bash
    kubectl get service fxp-ui -n fxp-apps
+   ```
 This will provide output similar to:
 ```bash
 NAME     TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 fxp-ui   LoadBalancer   10.108.27.125   localhost     80:30562/TCP   4m54s
 
 ```
-1. **Open your web browser.**
-2. **Enter the URL to login ( in our case, it is localhost) in the address bar:**
-   ```plaintext
+b. **Open your web browser.**
+**Enter the URL to login ( in our case, it is localhost) in the address bar:**
+   ```bash
    http://localhost/login
-### Access the UI Service through portforwarding
+   ```
+c. **Access the UI Service through portforwarding.**
+
 ```bash
 kubectl port-forward svc/fxp-ui 8080:80 -n fxp-apps
 ```
@@ -188,7 +188,7 @@ Access the app through the following link:
 http://127.0.0.1:8080/login
 ```
 
-### Updating the Application
+7. ### Updating the Application
 - To update any service, rebuild the Docker image and update the Kubernetes deployment:
   ```bash
   docker build -t forex-service:new ./path/to/service/Dockerfile
