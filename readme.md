@@ -150,10 +150,10 @@ Follow these steps to deploy the Forex Predictor application on Kubernetes:
 ### Monitoring and Logs
 - Monitor the status of the pods and services using:
   ```bash
-  kubectl get pods
+  kubectl get pods -n fxp-apps
   ```
   ```bash
-  kubectl get services
+  kubectl get services -n fxp-apps
    ```
 - View logs for a specific service:
   ```bash
