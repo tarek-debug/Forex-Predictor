@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: fxp-ui
-        image: tarek111778/fxp-ui-image:v0.0.1
+        image: hamimmahdie/fxp-ui-image:v2
         imagePullPolicy: Always
         resources:
           requests:

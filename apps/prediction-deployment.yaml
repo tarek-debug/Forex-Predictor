@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: fxp-prediction
-        image: tarek111778/fxp-prediction-image:v0.0.1
+        image: hamimmahdie/forex-prediction:v2
         ports:
         - containerPort: 5002
